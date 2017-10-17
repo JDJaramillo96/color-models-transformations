@@ -1,2 +1,2 @@
-# cg_color-models-transformations
+# color-models-transformations
 Functions for color models trasnformations in cg
