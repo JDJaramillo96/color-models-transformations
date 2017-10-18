@@ -1,4 +1,4 @@
-﻿Shader "Hidden/Grayscale01"
+﻿Shader "Hidden/ColorModelsTransformations"
 {
 	Properties
 	{
