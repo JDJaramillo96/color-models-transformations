@@ -13,6 +13,7 @@
 		Pass
 		{
 			CGPROGRAM
+			
 			#pragma vertex vert_img
 			#pragma fragment frag
 			#pragma fragmentoption ARB_precision_hint_fastest
@@ -27,7 +28,7 @@
 			/**/
 
 			//HUE to RGB 
-			float3 HUEtoRGB(float H)
+			inline float3 HUEtoRGB(float H)
 			{
 				float R = abs(H * 6 - 3) - 1;
 				float G = 2 - abs(H * 6 - 2);
@@ -39,7 +40,7 @@
 			//RGB to HCV 
 			float Epsilon = 1e-10;
 
-			float3 RGBtoHCV(float3 RGB)
+			inline float3 RGBtoHCV(float3 RGB)
 			{
 				//Based on work by Sam Hocevar and Emil Persson
 				float4 P = (RGB.g < RGB.b) ? float4(RGB.bg, -1.0, 2.0 / 3.0) : float4(RGB.gb, 0.0, -1.0 / 3.0);
@@ -51,7 +52,7 @@
 			}
 
 			//HSV to RGB
-			float3 HSVtoRGB(float3 HSV)
+			inline float3 HSVtoRGB(float3 HSV)
 			{
 				float3 RGB = HUEtoRGB(HSV.x);
 				
@@ -59,7 +60,7 @@
 			}
 
 			//HSL to RGB
-			float3 HSLtoRGB(float3 HSL)
+			inline float3 HSLtoRGB(float3 HSL)
 			{
 				float3 RGB = HUEtoRGB(HSL.x);
 				float C = (1 - abs(2 * HSL.z - 1)) * HSL.y;
@@ -71,7 +72,7 @@
 			//HCY to RGB
 			float3 HCYwts = float3(0.299, 0.587, 0.114); // The weights of RGB contributions to luminance.
 														 // Should sum to unity.
-			float3 HCYtoRGB(float3 HCY)
+			inline float3 HCYtoRGB(float3 HCY)
 			{
 				float3 RGB = HUEtoRGB(HCY.x);
 				float Z = dot(RGB, HCYwts);
@@ -94,7 +95,7 @@
 			float HCLmaxL = 0.530454533953517; // == exp(HCLgamma / HCLy0) - 0.5
 			float PI = 3.1415926536;
 
-			float3 HCLtoRGB(float3 HCL)
+			inline float3 HCLtoRGB(float3 HCL)
 			{
 				float3 RGB = 0;
 				
@@ -146,7 +147,7 @@
 			}
 
 			//RGB to HSV
-			float3 RGBtoHSV(float3 RGB)
+			inline float3 RGBtoHSV(float3 RGB)
 			{
 				float3 HCV = RGBtoHCV(RGB);
 				float S = HCV.y / (HCV.z + Epsilon);
@@ -155,7 +156,7 @@
 			}
 
 			//RGB to HSL
-			float3 RGBtoHSL(float3 RGB)
+			inline float3 RGBtoHSL(float3 RGB)
 			{
 				float3 HCV = RGBtoHCV(RGB);
 				float L = HCV.z - HCV.y * 0.5;
@@ -165,7 +166,7 @@
 			}
 
 			//RGB to HCY
-			float3 RGBtoHCY(float3 RGB)
+			inline float3 RGBtoHCY(float3 RGB)
 			{
 				//Corrected by David Schaeffer
 				float3 HCV = RGBtoHCV(RGB);
@@ -185,7 +186,7 @@
 			}
 
 			//RGB to HCL
-			float3 RGBtoHCL(float3 RGB)
+			inline float3 RGBtoHCL(float3 RGB)
 			{
 				float3 HCL;
 				float H = 0;
@@ -213,7 +214,7 @@
 			/**/
 
 			//RGB to YIQ
-			float3 RGBtoYIQ(float3 RGB)
+			inline float3 RGBtoYIQ(float3 RGB)
 			{
 				//Trasnformation matrix
 				float3x3 transformationMatrix = float3x3(
@@ -229,7 +230,7 @@
 			}
 
 			//YIQ to RGB
-			float3 YIQtoRGB(float3 YIQ)
+			inline float3 YIQtoRGB(float3 YIQ)
 			{
 				//Transformation matrix
 				float3x3 transformationMatrix = float3x3(
